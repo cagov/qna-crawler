@@ -1,5 +1,7 @@
 # Q&A scraper
 
+(originated in the /Cron repo).
+
 This project scrapes the www.covid19.ca.gov website to create sets of questions and answers we can populate a database with and present to users on the search result page when they query for something closely related to that Q&A pair. This is helpful when the answer to a specific question is available somewhere on a larger page.
 
 ## Content Authors
