@@ -17,6 +17,18 @@ The authors of the site content can help the scraper find question and answer pa
 
 ## Run scraper
 
+If uninstalled:
+```
+npm install
+npm i puppeteer  ; only necessary if first run breaks with 'Could not find browser revision' message.
+```
+
+```
+sh ./do_crawl.sh
+```
+
+The do_crawl.sh shell script performs the following actions:
+
 ```
 node index.js
 ```
