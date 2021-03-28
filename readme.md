@@ -51,3 +51,4 @@ The output merged.xlsx is the new knowledge base for azure qnamaker.ai. We used 
 ## Data collection
 
 We've created this data studio dashboard to collect user interaction, searches which came up with quick answers, ones which had none associated and which accordions were interacted with throughout the site: <a href="https://datastudio.google.com/u/0/reporting/b20a976f-f191-48e1-a750-ba45e46bb9cc/page/dcWOB">https://datastudio.google.com/u/0/reporting/b20a976f-f191-48e1-a750-ba45e46bb9cc/page/dcWOB</a>
+
