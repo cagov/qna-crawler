@@ -108,7 +108,8 @@ async function run() {
                             break;
                         }
                     }
-                }
+                    await sleep(3000);
+                  }
                 if (!gotIt) {
                     continue;
                 }
