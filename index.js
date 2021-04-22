@@ -88,30 +88,15 @@ async function run() {
               let qnaFile = `Question	Answer	Source\n`;
               const browser = await puppeteer.launch({ headless: true });
               const page = await browser.newPage();
-              for (let i = 0; i < urls.length; i++) {
-                let gotIt = false;
-                let tries = 0;
-                while (!gotIt) {
-                    try {
-                        tries += 1;
-                        pageData = await goTo(urls[i], page);
-                        gotIt = true;
-                    } catch (e) {
-                        console.log("Failed to get",urls[i]);
-                        if (tries < 3) {
-                            console.log("Sleep and retry"); 
-                            await sleep(2000);
-                            continue;
-                        }
-                        else {
-                            console.log("Giving up"); 
-                            break;
-                        }
-                    }
-                    await sleep(3000);
-                  }
-                if (!gotIt) {
-                    continue;
+              while (urls.length > 0) {
+                let url = urls.shift();
+                try {
+                    pageData = await goTo(url, page);
+                } catch (e) {
+                    console.log("Failed to get",url,"pushing to end");
+                    urls.push(url);
+                    await sleep(5000);
+                    continue
                 }
                 if (pageData.accordions) {
                   pageData.accordions.forEach((item) => {
@@ -129,13 +114,13 @@ async function run() {
                     }
                     let answer = turndownService
                       .turndown(
-                        `${item.answer}<p>More info: <a href="${urls[i]}">${pageData.title}</a></p>`
+                        `${item.answer}<p>More info: <a href="${url}">${pageData.title}</a></p>`
                       )
                       .replace(/\r?\n|\r/g, "\\n");
-                    qnaFile += `${item.question}	${answer + commentContent}	${urls[i]}\n`;
+                    qnaFile += `${item.question}	${answer + commentContent}	${url}\n`;
                   });
                 }
-                await sleep(500);
+                await sleep(1000);
               }
               fs.writeFileSync("./qna.tsv", qnaFile, "utf8");
               browser.close();
