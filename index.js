@@ -10,7 +10,11 @@ const parser = new xml2js.Parser();
 // Use sitemap to determine pages to crawl
 const sitemap_url = 'https://covid19.ca.gov/sitemap.xml';
 // Skip non-english pages - NO LONGER IN USE
-const skip_pattern = /^https:\/\/covid19.ca.gov\/(es|ar|ko|tl|vi|zh-hans|zh-hant)\//;
+// const skip_pattern = /^https:\/\/covid19.ca.gov\/(es|ar|ko|tl|vi|zh-hans|zh-hant)\//;
+const debug_pattern = /^https:\/\/covid19.ca.gov\/masks-and-ppe\//;
+const do_debug = false;
+
+const pdf_pattern = /<span class="pdf-link-icon.*?<\/span><span class="sr-only.*?<\/span>/g;
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -84,6 +88,10 @@ async function run() {
               // urls = urls.filter( url => !(url.match(skip_pattern)));
               // console.log("this.pagelist = ",urls.length,"items");
               // now do our crawl
+              if (do_debug) {
+                 urls = urls.filter( url => (url.match(debug_pattern)));
+                 console.log("Debugging urls",urls);
+              }
               urls.sort();
               let qnaFile = `Question	Answer	Source\n`;
               const browser = await puppeteer.launch({ headless: true });
@@ -112,6 +120,10 @@ async function run() {
                         );
                       }
                     }
+                    console.log("Pre Answer",item.answer);
+                    // Correct PDFs
+                    item.answer = item.answer.replace(pdf_pattern," (PDF)");
+                    console.log("Post Answer",item.answer);
                     let answer = turndownService
                       .turndown(
                         `${item.answer}<p>More info: <a href="${url}">${pageData.title}</a></p>`
