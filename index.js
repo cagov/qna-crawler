@@ -120,10 +120,10 @@ async function run() {
                         );
                       }
                     }
-                    console.log("Pre Answer",item.answer);
+                    // console.log("Pre Answer",item.answer);
                     // Correct PDFs
                     item.answer = item.answer.replace(pdf_pattern," (PDF)");
-                    console.log("Post Answer",item.answer);
+                    // console.log("Post Answer",item.answer);
                     let answer = turndownService
                       .turndown(
                         `${item.answer}<p>More info: <a href="${url}">${pageData.title}</a></p>`
