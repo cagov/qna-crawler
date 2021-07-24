@@ -12,6 +12,7 @@ const sitemap_url = 'https://covid19.ca.gov/sitemap.xml';
 // Skip non-english pages - NO LONGER IN USE
 // const skip_pattern = /^https:\/\/covid19.ca.gov\/(es|ar|ko|tl|vi|zh-hans|zh-hant)\//;
 const debug_pattern = /^https:\/\/covid19.ca.gov\/masks-and-ppe\//;
+const exclude_pattern = /^https:\/\/covid19.ca.gov\/(.*\/)?(equity|state-dashboard|vaccination-progress-data)\//;
 const do_debug = false;
 
 const pdf_pattern = /<span class="pdf-link-icon.*?<\/span><span class="sr-only.*?<\/span>/g;
@@ -92,6 +93,7 @@ async function run() {
                  urls = urls.filter( url => (url.match(debug_pattern)));
                  console.log("Debugging urls",urls);
               }
+              urls = urls.filter( url => (!url.match(exclude_pattern)));
               urls.sort();
               let qnaFile = `Question	Answer	Source\n`;
               const browser = await puppeteer.launch({ headless: true });
