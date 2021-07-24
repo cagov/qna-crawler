@@ -98,6 +98,7 @@ async function run() {
               const page = await browser.newPage();
               while (urls.length > 0) {
                 let url = urls.shift();
+
                 try {
                     pageData = await goTo(url, page);
                 } catch (e) {

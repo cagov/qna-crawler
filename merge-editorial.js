@@ -29,10 +29,24 @@ async function writeFile() {
   let scrapeMap = new Map();
   let dups = [];
 
+  // determine if source urls are the same language
+  function is_same_language(urlA, urlB) {
+    if (urlA.includes('/ar/') != urlB.includes('/ar/') ||
+        urlA.includes('/es/') != urlB.includes('/es/') ||
+        urlA.includes('/tl/') != urlB.includes('/tl/') ||
+        urlA.includes('/ko/') != urlB.includes('/ko/') ||
+        urlA.includes('/vi/') != urlB.includes('/vi/') ||
+        urlA.includes('/zh-hans/') != urlB.includes('/zh-hans/') ||
+        urlA.includes('/zh-hant/') != urlB.includes('/zh-hant/')) {
+          return false;
+    }
+    return true;
+  }
+
   function addItem(s){
-    if(scrapeMap.get(s.Question)) {
-      console.log('found dup',s.Question);
+    if(scrapeMap.get(s.Question) && is_same_language(scrapeMap.get(s.Question).Source,s.Source)) {
       s.duplicate = scrapeMap.get(s.Question)
+      console.log('found dup',s.Question, s.duplicate.Source, s.Source);
       dups.push(s)
     } else {
       scrapeMap.set(s.Question,s);
