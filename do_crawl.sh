@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/sh
 cp merged.tsv merged_bak.tsv
 node index.js
 # node index_englishonly.js
