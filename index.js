@@ -135,7 +135,7 @@ async function run() {
                     qnaFile += `${item.question}	${answer + commentContent}	${url}\n`;
                   });
                 }
-                await sleep(1000);
+                await sleep(2000);
               }
               fs.writeFileSync("./qna.tsv", qnaFile, "utf8");
               browser.close();
