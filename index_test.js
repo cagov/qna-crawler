@@ -34,11 +34,11 @@ async function goTo(url, page) {
       let acObj = {};
       if (!acc.querySelector(".js-qa-exclude")) {
         acObj.question = acc
-          .querySelector(".accordion-title")
+          .querySelector("summary")
           .textContent.trim();
         if (acObj.question !== "Menu") {
           acObj.answer = acc
-            .querySelector(".card-body")
+            .querySelector(".accordion-body")
             .innerHTML.replace(/\r?\n|\r/g, "");
           data.accordions.push(acObj);
         }
