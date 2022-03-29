@@ -14,7 +14,7 @@
     "json2csv": "^5.0.1",
     "lodash": ">=4.17.21",
     "node-xlsx": "^0.15.0",
-    "puppeteer": "^3.3.0",
+    "puppeteer": "^13.3.2",
     "tsvtojson": "^1.0.1",
     "turndown": "^6.0.0",
     "ws": ">=7.4.6",
